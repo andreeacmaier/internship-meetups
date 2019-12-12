@@ -1,3 +1,4 @@
+/*
 package com.arobs.internship.demointernship.service;
 
 import com.arobs.internship.demointernship.service.dto.ProposalDTO;
@@ -8,3 +9,4 @@ public interface ProposalService {
 
     boolean createProposal(ProposalDTO proposal);
 }
+*/

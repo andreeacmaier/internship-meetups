@@ -1,6 +1,6 @@
+/*
 package com.arobs.internship.demointernship.service;
 
-import com.arobs.internship.demointernship.repository.ProposalRepository;
 import com.arobs.internship.demointernship.service.dto.ProposalDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,3 +17,4 @@ public class ProposalServiceImpl implements ProposalService {
     }
 
 }
+*/

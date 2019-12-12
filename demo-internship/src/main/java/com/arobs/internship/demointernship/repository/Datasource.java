@@ -2,9 +2,15 @@ package com.arobs.internship.demointernship.repository;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+
 
 public class Datasource {
 
@@ -12,10 +18,10 @@ public class Datasource {
     private static HikariDataSource ds;
 
     static {
-        config.setJdbcUrl("jdbc:mysql://localhost:3306/internship?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
+        config.setJdbcUrl("jdbc:mysql://localhost:3306/meetup");
         config.setDriverClassName("com.mysql.cj.jdbc.Driver");
         config.setUsername("root");
-        config.setPassword("12345");
+        config.setPassword("pass");
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
@@ -25,4 +31,10 @@ public class Datasource {
     public static Connection getConnection() throws SQLException {
         return ds.getConnection();
     }
+
+   /* @Bean(name="customDataSource")
+    @ConfigurationProperties("application.properties")
+    public DataSource customDataSource() {
+        return DataSourceBuilder.create().build();
+    }*/
 }
