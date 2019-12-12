@@ -1,4 +1,3 @@
-/*
 package com.arobs.internship.demointernship;
 
 import org.springframework.boot.SpringApplication;
@@ -12,4 +11,3 @@ public class DemoInternshipApplication {
 	}
 
 }
-*/
