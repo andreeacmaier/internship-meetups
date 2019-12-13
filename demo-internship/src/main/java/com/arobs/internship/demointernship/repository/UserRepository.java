@@ -1,6 +1,8 @@
 package com.arobs.internship.demointernship.repository;
 
+import com.arobs.internship.demointernship.configuration.Datasource;
 import com.arobs.internship.demointernship.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -13,9 +15,12 @@ import java.util.List;
 @Repository
 public class UserRepository {
 
+    @Autowired
+    Datasource datasource;
+
     public User findUserById(int id) throws ClassNotFoundException {
         String querry = "SELECT * FROM users WHERE id = " + id;
-        try (Connection connection = Datasource.getConnection();
+        try (Connection connection = datasource.customDataSource().getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(querry)
         ) {
@@ -31,7 +36,7 @@ public class UserRepository {
     public List<User> findAll() {
         List<User> users = new ArrayList<>();
         String querry = "SELECT * FROM users";
-        try (Connection connection = Datasource.getConnection();
+        try (Connection connection = datasource.customDataSource().getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(querry)
         ) {

@@ -1,7 +1,8 @@
 package com.arobs.internship.demointernship.controller;
 
 import com.arobs.internship.demointernship.entity.User;
-import com.arobs.internship.demointernship.service.UserService;
+import com.arobs.internship.demointernship.service.user.UserDTO;
+import com.arobs.internship.demointernship.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,12 +20,12 @@ public class UserController {
     UserService userService;
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable int id) throws ClassNotFoundException {
+    public ResponseEntity<UserDTO> getUserById(@PathVariable int id) throws ClassNotFoundException {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @GetMapping(path = "/")
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 

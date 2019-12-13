@@ -1,4 +1,4 @@
-package com.arobs.internship.demointernship.service.dto;
+package com.arobs.internship.demointernship.service.user;
 
 public class UserDTO {
 
