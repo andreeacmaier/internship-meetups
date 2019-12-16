@@ -9,7 +9,6 @@ public class Proposal {
     private String type;
     private String difficulty;
     private String language;
-    private int votes;
     private int durationInMinutes;
     private int maximumPeople;
 
@@ -67,14 +66,6 @@ public class Proposal {
 
     public void setLanguage(String language) {
         this.language = language;
-    }
-
-    public int getVotes() {
-        return votes;
-    }
-
-    public void setVotes(int votes) {
-        this.votes = votes;
     }
 
     public int getDurationInMinutes() {

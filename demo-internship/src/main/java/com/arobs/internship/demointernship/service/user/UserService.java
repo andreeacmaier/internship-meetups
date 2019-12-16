@@ -10,4 +10,6 @@ public interface UserService {
     UserDTO getUserById(int id) throws ClassNotFoundException;
 
     List<UserDTO> getAllUsers();
+
+    boolean createUser(UserDTO userDTO);
 }

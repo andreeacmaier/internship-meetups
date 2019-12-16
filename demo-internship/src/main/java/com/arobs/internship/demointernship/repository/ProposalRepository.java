@@ -2,6 +2,9 @@ package com.arobs.internship.demointernship.repository;
 
 import com.arobs.internship.demointernship.configuration.Datasource;
 import com.arobs.internship.demointernship.entity.Proposal;
+import com.arobs.internship.demointernship.service.user.UserServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +15,8 @@ import java.sql.SQLException;
 @Repository
 public class ProposalRepository {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
+
     @Autowired
     Datasource datasource;
 
@@ -21,7 +26,7 @@ public class ProposalRepository {
     public boolean save(Proposal proposal) {
 
         String querry = "INSERT INTO proposal(user_id, title, description, type, difficulty," +
-                "language, votes, duration_min, max_people) VALUES (?,?,?,?,?,?,?,?,?)";
+                "language, votes, duration_min, max_people) VALUES (?,?,?,?,?,?,?,?)";
         try (
                 Connection connection = datasource.customDataSource().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(querry);
@@ -32,11 +37,11 @@ public class ProposalRepository {
             preparedStatement.setString(4, proposal.getType());
             preparedStatement.setString(5, proposal.getDifficulty());
             preparedStatement.setString(6, proposal.getLanguage());
-            preparedStatement.setInt(7, proposal.getVotes());
-            preparedStatement.setInt(8, proposal.getDurationInMinutes());
-            preparedStatement.setInt(9, proposal.getMaximumPeople());
+            preparedStatement.setInt(7, proposal.getDurationInMinutes());
+            preparedStatement.setInt(8, proposal.getMaximumPeople());
 
             int inserted = preparedStatement.executeUpdate();
+            LOGGER.info("INSERTED = " + inserted);
             if (inserted == 1) {
                 return true;
             }

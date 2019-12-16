@@ -21,5 +21,8 @@ public class UserServiceImpl implements UserService {
         return userObject.getAllUsers();
     }
 
-
+    @Override
+    public boolean createUser(UserDTO userDTO) {
+        return userObject.createUser(userDTO);
+    }
 }

@@ -1,15 +1,14 @@
 package com.arobs.internship.demointernship.controller;
 
-import com.arobs.internship.demointernship.entity.User;
 import com.arobs.internship.demointernship.service.user.UserDTO;
 import com.arobs.internship.demointernship.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -27,6 +26,16 @@ public class UserController {
     @GetMapping(path = "/")
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
+    }
+
+    @PostMapping(path = "/", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<UserDTO> register(@RequestBody UserDTO userDTO) {
+        boolean created = userService.createUser(userDTO);
+        if (created) {
+            return ResponseEntity.created(URI.create("/")).build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
 }

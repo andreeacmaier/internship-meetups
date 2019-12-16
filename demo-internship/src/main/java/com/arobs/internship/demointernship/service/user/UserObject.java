@@ -21,7 +21,6 @@ public class UserObject {
     UserMapper userMapper;
 
     public UserDTO getUserById(int id) throws ClassNotFoundException {
-        LOGGER.info("LOG UserServiceImpl = getUserById");
         User user = userRepository.findUserById(id);
         if (user != null) {
             return userMapper.map(user, UserDTO.class);
@@ -35,5 +34,10 @@ public class UserObject {
             return userMapper.mapAsList(users, UserDTO.class);
         }
         return null;
+    }
+
+    public boolean createUser(UserDTO userDTO) {
+        User user = userMapper.map(userDTO, User.class);
+        return userRepository.save(user);
     }
 }

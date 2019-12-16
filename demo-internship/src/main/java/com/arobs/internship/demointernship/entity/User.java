@@ -8,6 +8,7 @@ public class User {
     private String role;
     private String email;
     private String password;
+    private int points;
 
     public int getId() {
         return id;
@@ -56,4 +57,13 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
 }

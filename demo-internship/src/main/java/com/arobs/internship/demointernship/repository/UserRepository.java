@@ -5,10 +5,7 @@ import com.arobs.internship.demointernship.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,8 +57,33 @@ public class UserRepository {
         user.setEmail(resultSet.getString("email"));
         user.setPassword(resultSet.getString("password"));
         user.setRole(resultSet.getString("role"));
+        user.setPoints(resultSet.getInt("points"));
 
         return user;
+    }
+
+    public boolean save(User user) {
+        String querry = "INSERT INTO users(first_name, last_name, role, email, password, points) " +
+                "VALUES (?,?,?,?,?,?)";
+        try (Connection connection = datasource.customDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(querry);) {
+
+            preparedStatement.setString(1, user.getFirstName());
+            preparedStatement.setString(2, user.getLastName());
+            preparedStatement.setString(3, user.getRole());
+            preparedStatement.setString(4, user.getEmail());
+            preparedStatement.setString(5, user.getPassword());
+            preparedStatement.setInt(6, user.getPoints());
+
+            int inserted = preparedStatement.executeUpdate();
+
+            if (inserted == 1) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }
