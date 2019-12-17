@@ -1,30 +1,24 @@
 package com.arobs.internship.demointernship.entity;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "proposal")
-public class Proposal {
+@Table(name = "event")
+public class Event {
 
     @Id
     @GeneratedValue
-    @Column(name = "proposal_id", nullable = false)
+    @Column(name = "event_id", nullable = false)
     private int id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
 
     @Column(name = "title", nullable = false)
     private String title;
 
     @Column(name = "description", nullable = false)
     private String description;
-
-    @Column(name = "type", nullable = false)
-    private String type;
 
     @Column(name = "difficulty", nullable = false)
     private String difficulty;
@@ -38,8 +32,17 @@ public class Proposal {
     @Column(name = "max_people", nullable = false)
     private int maximumPeople;
 
-    @ManyToMany(mappedBy = "votedProposals")
-    private Set<User> users = new HashSet<>();
+    @Column(name = "event_date", nullable = false)
+    private Date date;
+
+    @Column(name = "room", nullable = false)
+    private int room;
+
+    @OneToMany(
+            mappedBy = "event",
+            cascade = CascadeType.ALL
+    )
+    Set<Attendance> attendees = new HashSet<>();
 
     public int getId() {
         return id;
@@ -47,14 +50,6 @@ public class Proposal {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public String getTitle() {
@@ -71,14 +66,6 @@ public class Proposal {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getDifficulty() {
@@ -113,4 +100,19 @@ public class Proposal {
         this.maximumPeople = maximumPeople;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public int getRoom() {
+        return room;
+    }
+
+    public void setRoom(int room) {
+        this.room = room;
+    }
 }

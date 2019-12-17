@@ -1,14 +1,60 @@
 package com.arobs.internship.demointernship.entity;
 
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table(name = "users")
 public class User {
 
+    @Id @GeneratedValue
+    @Column(name = "user_id")
     private int id;
+
+    @Column(name = "first_name", nullable = false)
     private String firstName;
+
+    @Column(name = "last_name", nullable = false)
     private String lastName;
+
+    @Column(name = "role", nullable = false)
     private String role;
+
+    @Column(name = "email", nullable = false)
     private String email;
+
+    @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "points")
     private int points;
+
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "vote",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "proposal_id")}
+    )
+    Set<Proposal> votedProposals = new HashSet<>();
+
+    @OneToMany(
+            mappedBy = "users",
+            cascade = CascadeType.ALL
+           )
+    Set<Attendance> eventsAttended = new HashSet<>();
+
+    @OneToMany(
+            mappedBy = "users",
+            cascade = CascadeType.ALL
+    )
+    Set<Attendance> proposalsCreated = new HashSet<>();
+
+    @OneToMany(
+            mappedBy = "users",
+            cascade = CascadeType.ALL
+    )
+    Set<AwardingHistory> awards = new HashSet<>();
 
     public int getId() {
         return id;
@@ -65,5 +111,7 @@ public class User {
     public void setPoints(int points) {
         this.points = points;
     }
+
+
 
 }

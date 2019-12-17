@@ -31,7 +31,7 @@ public class ProposalRepository {
                 Connection connection = datasource.customDataSource().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(querry);
         ) {
-            preparedStatement.setInt(1, proposal.getUserId());
+            preparedStatement.setInt(1, proposal.getUser());
             preparedStatement.setString(2, proposal.getTitle());
             preparedStatement.setString(3, proposal.getDescription());
             preparedStatement.setString(4, proposal.getType());
