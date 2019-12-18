@@ -39,19 +39,25 @@ public class User {
     Set<Proposal> votedProposals = new HashSet<>();
 
     @OneToMany(
-            mappedBy = "users",
+            mappedBy = "user",
             cascade = CascadeType.ALL
            )
     Set<Attendance> eventsAttended = new HashSet<>();
 
     @OneToMany(
-            mappedBy = "users",
+            mappedBy = "user",
             cascade = CascadeType.ALL
     )
     Set<Attendance> proposalsCreated = new HashSet<>();
 
     @OneToMany(
-            mappedBy = "users",
+            mappedBy = "user",
+            cascade = CascadeType.ALL
+    )
+    Set<Attendance> eventsCreated = new HashSet<>();
+
+    @OneToMany(
+            mappedBy = "user",
             cascade = CascadeType.ALL
     )
     Set<AwardingHistory> awards = new HashSet<>();

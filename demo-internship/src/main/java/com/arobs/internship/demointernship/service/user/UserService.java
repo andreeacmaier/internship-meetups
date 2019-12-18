@@ -12,4 +12,5 @@ public interface UserService {
     List<UserDTO> getAllUsers();
 
     boolean createUser(UserDTO userDTO);
+
 }

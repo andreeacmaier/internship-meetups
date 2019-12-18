@@ -2,6 +2,7 @@ package com.arobs.internship.demointernship.repository;
 
 import com.arobs.internship.demointernship.configuration.Datasource;
 import com.arobs.internship.demointernship.entity.User;
+import com.arobs.internship.demointernship.repository.interfaces.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -10,12 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class UserRepository {
+public class UserRepositoryJDBCImpl implements UserRepository {
 
     @Autowired
     Datasource datasource;
 
-    public User findUserById(int id) throws ClassNotFoundException {
+    public User findUserById(int id)  {
         String querry = "SELECT * FROM users WHERE id = " + id;
         try (Connection connection = datasource.customDataSource().getConnection();
              Statement statement = connection.createStatement();
@@ -51,7 +52,7 @@ public class UserRepository {
     private User extractItemFromResultSet(ResultSet resultSet) throws SQLException {
         User user = new User();
 
-        user.setId(resultSet.getInt("id"));
+        user.setId(resultSet.getInt("user_id"));
         user.setFirstName(resultSet.getString("first_name"));
         user.setLastName(resultSet.getString("last_name"));
         user.setEmail(resultSet.getString("email"));

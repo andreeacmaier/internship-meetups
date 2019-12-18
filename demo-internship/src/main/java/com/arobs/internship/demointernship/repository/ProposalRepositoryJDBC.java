@@ -2,6 +2,7 @@ package com.arobs.internship.demointernship.repository;
 
 import com.arobs.internship.demointernship.configuration.Datasource;
 import com.arobs.internship.demointernship.entity.Proposal;
+import com.arobs.internship.demointernship.repository.interfaces.ProposalRepository;
 import com.arobs.internship.demointernship.service.user.UserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,14 +14,14 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 @Repository
-public class ProposalRepository {
+public class ProposalRepositoryJDBC implements ProposalRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
     Datasource datasource;
 
-    public ProposalRepository() throws SQLException {
+    public ProposalRepositoryJDBC(){
     }
 
     public boolean save(Proposal proposal) {
@@ -31,7 +32,7 @@ public class ProposalRepository {
                 Connection connection = datasource.customDataSource().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(querry);
         ) {
-            preparedStatement.setInt(1, proposal.getUser());
+            preparedStatement.setInt(1, proposal.getUser().getId());
             preparedStatement.setString(2, proposal.getTitle());
             preparedStatement.setString(3, proposal.getDescription());
             preparedStatement.setString(4, proposal.getType());

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
@@ -28,14 +27,18 @@ public class UserController {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
-    @PostMapping(path = "/", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+   /* @PostMapping(path = "/", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<UserDTO> register(@RequestBody UserDTO userDTO) {
-        boolean created = userService.createUser(userDTO);
-        if (created) {
+        *//*if (userService.save(userDTO) != null) {
+            return ResponseEntity.created(URI.create("/")).build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }*//*
+        userService.save(userDTO);
+        if (userDTO != null) {
             return ResponseEntity.created(URI.create("/")).build();
         } else {
             return ResponseEntity.badRequest().build();
         }
-    }
-
+    }*/
 }
