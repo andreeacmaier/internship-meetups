@@ -1,13 +1,12 @@
 package com.arobs.internship.demointernship.controller;
 
+import com.arobs.internship.demointernship.service.proposal.ProposalDTO;
 import com.arobs.internship.demointernship.service.user.UserDTO;
 import com.arobs.internship.demointernship.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -27,18 +26,8 @@ public class UserController {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
-   /* @PostMapping(path = "/", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<UserDTO> register(@RequestBody UserDTO userDTO) {
-        *//*if (userService.save(userDTO) != null) {
-            return ResponseEntity.created(URI.create("/")).build();
-        } else {
-            return ResponseEntity.badRequest().build();
-        }*//*
-        userService.save(userDTO);
-        if (userDTO != null) {
-            return ResponseEntity.created(URI.create("/")).build();
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
-    }*/
+    @GetMapping(path = "/{id}/createdProposals")
+    public ResponseEntity<List<ProposalDTO>> getProposalsForUser(@PathVariable int id) {
+        return ResponseEntity.ok(userService.getProposalsForUser(id));
+    }
 }

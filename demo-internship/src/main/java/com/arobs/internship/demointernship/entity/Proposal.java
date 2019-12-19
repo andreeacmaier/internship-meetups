@@ -1,6 +1,7 @@
 package com.arobs.internship.demointernship.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ public class Proposal {
     @Column(name = "proposal_id", nullable = false)
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -32,7 +33,8 @@ public class Proposal {
     @Column(name = "language", nullable = false)
     private String language;
 
-    @Column(name = "duration_min", nullable = false)
+    @Column(name = "duration_min")
+    @NotNull
     private int durationInMinutes;
 
     @Column(name = "max_people", nullable = false)
@@ -113,4 +115,11 @@ public class Proposal {
         this.maximumPeople = maximumPeople;
     }
 
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
 }

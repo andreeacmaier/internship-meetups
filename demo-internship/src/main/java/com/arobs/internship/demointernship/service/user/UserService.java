@@ -1,5 +1,6 @@
 package com.arobs.internship.demointernship.service.user;
 
+import com.arobs.internship.demointernship.service.proposal.ProposalDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,4 +14,5 @@ public interface UserService {
 
     boolean createUser(UserDTO userDTO);
 
+    List<ProposalDTO> getProposalsForUser(int id);
 }

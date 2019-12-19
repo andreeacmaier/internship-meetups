@@ -48,4 +48,12 @@ public class Prize {
     public void setValue(String value) {
         this.value = value;
     }
+
+    public Set<AwardingHistory> getAwards() {
+        return awards;
+    }
+
+    public void setAwards(Set<AwardingHistory> awards) {
+        this.awards = awards;
+    }
 }

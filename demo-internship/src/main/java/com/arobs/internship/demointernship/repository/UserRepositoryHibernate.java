@@ -1,5 +1,6 @@
 package com.arobs.internship.demointernship.repository;
 
+import com.arobs.internship.demointernship.entity.Proposal;
 import com.arobs.internship.demointernship.entity.User;
 import com.arobs.internship.demointernship.repository.interfaces.UserRepository;
 import org.hibernate.Session;
@@ -43,5 +44,18 @@ public class UserRepositoryHibernate implements UserRepository {
     @Override
     public boolean save(User user) {
         return false;
+    }
+
+    @Override
+    public List<Proposal> findProposalsForUser(int userId) {
+        Session session = sessionFactory.getCurrentSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<Proposal> criteriaQuery = criteriaBuilder.createQuery(Proposal.class);
+        Root<Proposal> root = criteriaQuery.from(Proposal.class);
+        criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("user"), new User(userId)));
+        Query query = session.createQuery(criteriaQuery);
+        List<Proposal> queryResult = query.getResultList();
+        LOGGER.info("ID from db: " + String.valueOf(queryResult.get(0).getUser().getId()));
+        return queryResult;
     }
 }

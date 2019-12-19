@@ -8,7 +8,8 @@ import java.util.Set;
 @Table(name = "users")
 public class User {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "user_id")
     private int id;
 
@@ -41,7 +42,7 @@ public class User {
     @OneToMany(
             mappedBy = "user",
             cascade = CascadeType.ALL
-           )
+    )
     Set<Attendance> eventsAttended = new HashSet<>();
 
     @OneToMany(
@@ -61,6 +62,12 @@ public class User {
             cascade = CascadeType.ALL
     )
     Set<AwardingHistory> awards = new HashSet<>();
+
+    public User() {}
+
+    public User(int userId) {
+        this.id = userId;
+    }
 
     public int getId() {
         return id;
@@ -118,6 +125,43 @@ public class User {
         this.points = points;
     }
 
+    public Set<Proposal> getVotedProposals() {
+        return votedProposals;
+    }
 
+    public void setVotedProposals(Set<Proposal> votedProposals) {
+        this.votedProposals = votedProposals;
+    }
 
+    public Set<Attendance> getEventsAttended() {
+        return eventsAttended;
+    }
+
+    public void setEventsAttended(Set<Attendance> eventsAttended) {
+        this.eventsAttended = eventsAttended;
+    }
+
+    public Set<Attendance> getProposalsCreated() {
+        return proposalsCreated;
+    }
+
+    public void setProposalsCreated(Set<Attendance> proposalsCreated) {
+        this.proposalsCreated = proposalsCreated;
+    }
+
+    public Set<Attendance> getEventsCreated() {
+        return eventsCreated;
+    }
+
+    public void setEventsCreated(Set<Attendance> eventsCreated) {
+        this.eventsCreated = eventsCreated;
+    }
+
+    public Set<AwardingHistory> getAwards() {
+        return awards;
+    }
+
+    public void setAwards(Set<AwardingHistory> awards) {
+        this.awards = awards;
+    }
 }

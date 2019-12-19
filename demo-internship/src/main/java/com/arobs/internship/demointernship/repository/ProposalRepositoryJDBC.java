@@ -21,10 +21,10 @@ public class ProposalRepositoryJDBC implements ProposalRepository {
     @Autowired
     Datasource datasource;
 
-    public ProposalRepositoryJDBC(){
+    public ProposalRepositoryJDBC() {
     }
 
-    public boolean save(Proposal proposal) {
+    public void save(Proposal proposal) {
 
         String querry = "INSERT INTO proposal(user_id, title, description, type, difficulty," +
                 "language, votes, duration_min, max_people) VALUES (?,?,?,?,?,?,?,?)";
@@ -43,14 +43,18 @@ public class ProposalRepositoryJDBC implements ProposalRepository {
 
             int inserted = preparedStatement.executeUpdate();
             LOGGER.info("INSERTED = " + inserted);
-            if (inserted == 1) {
-                return true;
-            }
+            /*if (inserted == 1) {
+                return inserted;
+            }*/
 
         } catch (
                 SQLException e) {
             e.printStackTrace();
         }
-        return false;
+    }
+
+    @Override
+    public Proposal findById(int id) {
+        return null;
     }
 }

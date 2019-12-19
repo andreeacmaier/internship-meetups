@@ -5,5 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ProposalService {
 
-    boolean createProposal(ProposalDTO proposalDTO);
+    void createProposal(ProposalDTO proposalDTO);
+
+    ProposalDTO getUserById(int id);
 }

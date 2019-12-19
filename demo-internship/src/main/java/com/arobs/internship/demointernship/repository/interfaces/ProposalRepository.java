@@ -4,6 +4,8 @@ import com.arobs.internship.demointernship.entity.Proposal;
 
 public interface ProposalRepository {
 
-    boolean save(Proposal proposal);
+    void save(Proposal proposal);
+
+    Proposal findById(int id);
 
 }

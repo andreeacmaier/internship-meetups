@@ -1,7 +1,6 @@
 package com.arobs.internship.demointernship.service.proposal;
 
 import com.arobs.internship.demointernship.entity.Proposal;
-import com.arobs.internship.demointernship.repository.ProposalRepositoryJDBC;
 import com.arobs.internship.demointernship.repository.factory.ProposalRepositoryFactory;
 import com.arobs.internship.demointernship.repository.interfaces.ProposalRepository;
 import com.arobs.internship.demointernship.utils.RepositoryConstants;
@@ -17,12 +16,20 @@ public class ProposalObject {
     @Autowired
     ProposalMapper proposalMapper;
 
-    public boolean createProposal(ProposalDTO proposalDTO) {
-        ProposalRepository proposalRepository = proposalRepositoryFactory.createProposalRepository(RepositoryConstants.JDBC_REPOSITORY_TYPE);
+    public void createProposal(ProposalDTO proposalDTO) {
+        ProposalRepository proposalRepository = proposalRepositoryFactory.createProposalRepository(RepositoryConstants.HIBERNATE_REPOSITORY_TYPE);
         if (proposalDTO != null) {
             Proposal proposal = proposalMapper.map(proposalDTO, Proposal.class);
-            return proposalRepository.save(proposal);
+            proposalRepository.save(proposal);
         }
-        return false;
+    }
+
+    public ProposalDTO getUserById(int id) {
+        ProposalRepository proposalRepository = proposalRepositoryFactory.createProposalRepository(RepositoryConstants.HIBERNATE_REPOSITORY_TYPE);
+        Proposal proposal = proposalRepository.findById(id);
+        if (proposal != null) {
+            return proposalMapper.map(proposal, ProposalDTO.class);
+        }
+        return null;
     }
 }

@@ -119,4 +119,20 @@ public class Event {
     public void setRoom(int room) {
         this.room = room;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Set<Attendance> getAttendees() {
+        return attendees;
+    }
+
+    public void setAttendees(Set<Attendance> attendees) {
+        this.attendees = attendees;
+    }
 }

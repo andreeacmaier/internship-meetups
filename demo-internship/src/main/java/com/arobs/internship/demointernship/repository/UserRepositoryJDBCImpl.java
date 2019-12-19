@@ -1,6 +1,7 @@
 package com.arobs.internship.demointernship.repository;
 
 import com.arobs.internship.demointernship.configuration.Datasource;
+import com.arobs.internship.demointernship.entity.Proposal;
 import com.arobs.internship.demointernship.entity.User;
 import com.arobs.internship.demointernship.repository.interfaces.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,6 +86,11 @@ public class UserRepositoryJDBCImpl implements UserRepository {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public List<Proposal> findProposalsForUser(int userId) {
+        return null;
     }
 
 }
