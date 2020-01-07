@@ -1,22 +1,27 @@
-package com.arobs.internship.demointernship.service.proposal;
+package com.arobs.internship.demointernship.service.event;
 
-public class ProposalDTO {
+import com.arobs.internship.demointernship.entity.User;
 
-    private int userId;
+import java.sql.Date;
+
+public class EventDTO {
+
+    private User user;
     private String title;
     private String description;
-    private String type;
     private String difficulty;
     private String language;
     private int durationInMinutes;
     private int maximumPeople;
+    private Date date;
+    private int room;
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getTitle() {
@@ -33,14 +38,6 @@ public class ProposalDTO {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getDifficulty() {
@@ -73,5 +70,21 @@ public class ProposalDTO {
 
     public void setMaximumPeople(int maximumPeople) {
         this.maximumPeople = maximumPeople;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public int getRoom() {
+        return room;
+    }
+
+    public void setRoom(int room) {
+        this.room = room;
     }
 }

@@ -64,7 +64,7 @@ public class UserRepositoryJDBCImpl implements UserRepository {
         return user;
     }
 
-    public boolean save(User user) {
+    public void save(User user) {
         String querry = "INSERT INTO users(first_name, last_name, role, email, password, points) " +
                 "VALUES (?,?,?,?,?,?)";
         try (Connection connection = datasource.customDataSource().getConnection();
@@ -80,17 +80,23 @@ public class UserRepositoryJDBCImpl implements UserRepository {
             int inserted = preparedStatement.executeUpdate();
 
             if (inserted == 1) {
-                return true;
+//                return true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+//        return false;
     }
 
     @Override
     public List<Proposal> findProposalsForUser(int userId) {
         return null;
     }
+
+    @Override
+    public List<Proposal> findVotedProposalsForUser(int id) {
+        return null;
+    }
+
 
 }

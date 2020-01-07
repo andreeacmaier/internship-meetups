@@ -30,4 +30,9 @@ public class UserController {
     public ResponseEntity<List<ProposalDTO>> getProposalsForUser(@PathVariable int id) {
         return ResponseEntity.ok(userService.getProposalsForUser(id));
     }
+
+    @GetMapping(path = {"/{id}/votedProposals"})
+    public ResponseEntity<List<ProposalDTO>> getVotedProposalsForUser(@PathVariable int id) {
+        return ResponseEntity.ok(userService.getVotedProposalsForUser(id));
+    }
 }

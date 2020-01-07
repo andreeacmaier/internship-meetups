@@ -8,4 +8,7 @@ public interface ProposalRepository {
 
     Proposal findById(int id);
 
+    void voteProposal(int id, int userId);
+
+    void deleteProposal(int id);
 }

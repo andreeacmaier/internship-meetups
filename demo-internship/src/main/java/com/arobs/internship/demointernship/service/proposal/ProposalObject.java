@@ -24,12 +24,24 @@ public class ProposalObject {
         }
     }
 
-    public ProposalDTO getUserById(int id) {
+    public ProposalDTO getProposalById(int id) {
         ProposalRepository proposalRepository = proposalRepositoryFactory.createProposalRepository(RepositoryConstants.HIBERNATE_REPOSITORY_TYPE);
         Proposal proposal = proposalRepository.findById(id);
         if (proposal != null) {
             return proposalMapper.map(proposal, ProposalDTO.class);
         }
         return null;
+    }
+
+    // TODO: 1/6/2020 votat
+    public boolean voteProposal(int id, int userId) {
+        ProposalRepository proposalRepository = proposalRepositoryFactory.createProposalRepository(RepositoryConstants.HIBERNATE_REPOSITORY_TYPE);
+        proposalRepository.voteProposal(id, userId);
+        return true;
+    }
+
+    public void deleteProposal(int id) {
+        ProposalRepository proposalRepository = proposalRepositoryFactory.createProposalRepository(RepositoryConstants.HIBERNATE_REPOSITORY_TYPE);
+        proposalRepository.deleteProposal(id);
     }
 }

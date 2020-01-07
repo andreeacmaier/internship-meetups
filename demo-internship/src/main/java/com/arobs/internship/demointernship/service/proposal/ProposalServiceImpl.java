@@ -19,7 +19,19 @@ public class ProposalServiceImpl implements ProposalService {
 
     @Override
     @Transactional
-    public ProposalDTO getUserById(int id) {
-        return proposalObject.getUserById(id);
+    public ProposalDTO getProposalById(int id) {
+        return proposalObject.getProposalById(id);
+    }
+
+    @Override
+    @Transactional
+    public boolean voteProposal(int id, int userId) {
+        return proposalObject.voteProposal(id, userId);
+    }
+
+    @Override
+    @Transactional
+    public void deleteProposal(int id) {
+        proposalObject.deleteProposal(id);
     }
 }

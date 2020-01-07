@@ -11,7 +11,9 @@ public interface UserRepository {
 
     List<User> findAll();
 
-    boolean save(User user);
+    void save(User user);
 
     List<Proposal> findProposalsForUser(int userId);
+
+    List<Proposal> findVotedProposalsForUser(int id);
 }

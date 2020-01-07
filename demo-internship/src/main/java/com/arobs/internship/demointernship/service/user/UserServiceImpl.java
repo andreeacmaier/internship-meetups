@@ -27,13 +27,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public boolean createUser(UserDTO userDTO) {
-        return userObject.createUser(userDTO);
+    public void createUser(UserDTO userDTO) {
+         userObject.createUser(userDTO);
     }
 
     @Override
     @Transactional
     public List<ProposalDTO> getProposalsForUser(int userId) {
         return userObject.getCreatedProposals(userId);
+    }
+
+    @Override
+    @Transactional
+    public List<ProposalDTO> getVotedProposalsForUser(int id) {
+        return userObject.getVotedProposalsForUser(id);
     }
 }

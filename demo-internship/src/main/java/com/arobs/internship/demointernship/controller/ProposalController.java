@@ -14,14 +14,24 @@ public class ProposalController {
     ProposalService proposalService;
 
     @PostMapping(path = "/createProposal")
-    public ResponseEntity<Void> createProposal(@RequestBody ProposalDTO proposalDTO) {
+    public void createProposal(@RequestBody ProposalDTO proposalDTO) {
         proposalService.createProposal(proposalDTO);
-        return (ResponseEntity<Void>) ResponseEntity.ok();
     }
 
     @GetMapping(path = "{id}")
     public ResponseEntity<ProposalDTO> getProposalById(@PathVariable int id) {
-        return ResponseEntity.ok(proposalService.getUserById(id));
+        return ResponseEntity.ok(proposalService.getProposalById(id));
+    }
+
+    @GetMapping(path = "{id}/vote")
+    public ResponseEntity<Boolean> voteProposal(@PathVariable int id) {
+        int userId = 1;
+        return ResponseEntity.ok(proposalService.voteProposal(id, userId));
+    }
+
+    @DeleteMapping(path = "delete/{id}")
+    public void deleteProposal(@PathVariable int id) {
+        proposalService.deleteProposal(id);
     }
 
 }

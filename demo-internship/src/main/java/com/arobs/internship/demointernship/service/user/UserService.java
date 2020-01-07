@@ -12,7 +12,9 @@ public interface UserService {
 
     List<UserDTO> getAllUsers();
 
-    boolean createUser(UserDTO userDTO);
+    void createUser(UserDTO userDTO);
 
     List<ProposalDTO> getProposalsForUser(int id);
+
+    List<ProposalDTO> getVotedProposalsForUser(int id);
 }

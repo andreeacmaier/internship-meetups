@@ -43,9 +43,10 @@ public class ProposalRepositoryJDBC implements ProposalRepository {
 
             int inserted = preparedStatement.executeUpdate();
             LOGGER.info("INSERTED = " + inserted);
-            /*if (inserted == 1) {
-                return inserted;
-            }*/
+            if (inserted == 1) {
+                //return inserted;
+            }
+
 
         } catch (
                 SQLException e) {
@@ -56,5 +57,15 @@ public class ProposalRepositoryJDBC implements ProposalRepository {
     @Override
     public Proposal findById(int id) {
         return null;
+    }
+
+    @Override
+    public void voteProposal(int id, int userId) {
+
+    }
+
+    @Override
+    public void deleteProposal(int id) {
+
     }
 }

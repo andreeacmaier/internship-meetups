@@ -11,9 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Repository
@@ -26,36 +23,40 @@ public class UserRepositoryHibernate implements UserRepository {
 
     @Override
     public User findUserById(int id) {
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        return session.byId(User.class).load(id);
     }
 
     @Override
     public List<User> findAll() {
-        LOGGER.info("  ==> UserRepositoryHibernate = findAll() ");
         Session session = sessionFactory.getCurrentSession();
-        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-        CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
-        Root<User> root = criteriaQuery.from(User.class);
-        criteriaQuery.select(root);
-        Query query = session.createQuery(criteriaQuery);
-        return query.getResultList();
+        String query = "select u from User u";
+        return session.createQuery(query).list();
     }
 
     @Override
-    public boolean save(User user) {
-        return false;
+    public void save(User user) {
+        Session session = sessionFactory.getCurrentSession();
+        session.save(user);
     }
 
     @Override
     public List<Proposal> findProposalsForUser(int userId) {
         Session session = sessionFactory.getCurrentSession();
-        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-        CriteriaQuery<Proposal> criteriaQuery = criteriaBuilder.createQuery(Proposal.class);
-        Root<Proposal> root = criteriaQuery.from(Proposal.class);
-        criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("user"), new User(userId)));
-        Query query = session.createQuery(criteriaQuery);
-        List<Proposal> queryResult = query.getResultList();
-        LOGGER.info("ID from db: " + String.valueOf(queryResult.get(0).getUser().getId()));
-        return queryResult;
+        String queryString = "select p from Proposal p where p.user.id = (?1)";
+        Query query = session.createQuery(queryString);
+        query.setParameter(1, userId);
+        List<Proposal> proposals = query.getResultList();
+        LOGGER.info("ID from db : " + proposals.get(0).getUser().getId());
+        return proposals;
+    }
+
+    @Override
+    public List findVotedProposalsForUser(int userId) {
+        Session session = sessionFactory.getCurrentSession();
+        String queryString = "select u.votedProposals from User u where u.id = (?1)";
+        Query query = session.createQuery(queryString);
+        query.setParameter(1, userId);
+        return query.getResultList();
     }
 }

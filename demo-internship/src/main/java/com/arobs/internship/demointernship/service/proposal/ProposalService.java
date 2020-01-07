@@ -7,5 +7,9 @@ public interface ProposalService {
 
     void createProposal(ProposalDTO proposalDTO);
 
-    ProposalDTO getUserById(int id);
+    ProposalDTO getProposalById(int id);
+
+    boolean voteProposal(int id, int userId);
+
+    void deleteProposal(int id);
 }
