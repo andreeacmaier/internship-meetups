@@ -21,6 +21,6 @@ public class VoteRepository {
     public void save(User user, Proposal proposal) {
         Session session = sessionFactory.getCurrentSession();
         user.getVotedProposals().add(proposal);
-        session.save(user);
+        proposal.getUsers().add(user);
     }
 }

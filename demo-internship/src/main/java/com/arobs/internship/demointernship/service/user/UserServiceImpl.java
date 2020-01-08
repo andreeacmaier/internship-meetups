@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.util.List;
 
 @Component
@@ -28,7 +27,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void createUser(UserDTO userDTO) {
-         userObject.createUser(userDTO);
+        userObject.createUser(userDTO);
     }
 
     @Override
@@ -41,5 +40,17 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public List<ProposalDTO> getVotedProposalsForUser(int id) {
         return userObject.getVotedProposalsForUser(id);
+    }
+
+    @Override
+    @Transactional
+    public void vote(int userId, int proposalId) {
+        userObject.vote(userId, proposalId);
+    }
+
+    @Override
+    @Transactional
+    public boolean userVotedProposal(int userId, int proposalId) {
+        return userObject.userVotedProposal(userId, proposalId);
     }
 }

@@ -17,4 +17,8 @@ public interface UserService {
     List<ProposalDTO> getProposalsForUser(int id);
 
     List<ProposalDTO> getVotedProposalsForUser(int id);
+
+    void vote(int userId, int proposalId);
+
+    boolean userVotedProposal(int userId, int proposalId);
 }

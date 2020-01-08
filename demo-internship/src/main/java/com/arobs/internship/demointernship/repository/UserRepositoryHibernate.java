@@ -59,4 +59,12 @@ public class UserRepositoryHibernate implements UserRepository {
         query.setParameter(1, userId);
         return query.getResultList();
     }
+
+    @Override
+    public void voteProposal(int userId, Proposal proposal) {
+        Session session = sessionFactory.getCurrentSession();
+        User user = findUserById(userId);
+        user.getVotedProposals().add(proposal);
+        session.save(user);
+    }
 }

@@ -49,13 +49,13 @@ public class User {
             mappedBy = "user",
             cascade = CascadeType.ALL
     )
-    Set<Attendance> proposalsCreated = new HashSet<>();
+    Set<Proposal> proposalsCreated = new HashSet<>();
 
     @OneToMany(
             mappedBy = "user",
             cascade = CascadeType.ALL
     )
-    Set<Attendance> eventsCreated = new HashSet<>();
+    Set<Event> eventsCreated = new HashSet<>();
 
     @OneToMany(
             mappedBy = "user",
@@ -141,19 +141,19 @@ public class User {
         this.eventsAttended = eventsAttended;
     }
 
-    public Set<Attendance> getProposalsCreated() {
+    public Set<Proposal> getProposalsCreated() {
         return proposalsCreated;
     }
 
-    public void setProposalsCreated(Set<Attendance> proposalsCreated) {
+    public void setProposalsCreated(Set<Proposal> proposalsCreated) {
         this.proposalsCreated = proposalsCreated;
     }
 
-    public Set<Attendance> getEventsCreated() {
+    public Set<Event> getEventsCreated() {
         return eventsCreated;
     }
 
-    public void setEventsCreated(Set<Attendance> eventsCreated) {
+    public void setEventsCreated(Set<Event> eventsCreated) {
         this.eventsCreated = eventsCreated;
     }
 

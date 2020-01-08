@@ -18,7 +18,7 @@ public class UserRepositoryJDBCImpl implements UserRepository {
     Datasource datasource;
 
     public User findUserById(int id)  {
-        String querry = "SELECT * FROM users WHERE id = " + id;
+        String querry = "SELECT * FROM users WHERE user_id = " + id;
         try (Connection connection = datasource.customDataSource().getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(querry)
@@ -98,5 +98,8 @@ public class UserRepositoryJDBCImpl implements UserRepository {
         return null;
     }
 
+    @Override
+    public void voteProposal(int userId, Proposal proposal) {
 
+    }
 }
