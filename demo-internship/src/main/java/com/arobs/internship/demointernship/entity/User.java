@@ -1,5 +1,7 @@
 package com.arobs.internship.demointernship.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,7 +33,8 @@ public class User {
     @Column(name = "points")
     private int points;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @JsonIgnore
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "vote",
             joinColumns = {@JoinColumn(name = "user_id")},
@@ -39,27 +42,31 @@ public class User {
     )
     Set<Proposal> votedProposals = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(
             mappedBy = "user",
-            cascade = CascadeType.ALL
+            cascade = CascadeType.ALL, fetch = FetchType.EAGER
     )
     Set<Attendance> eventsAttended = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(
             mappedBy = "user",
-            cascade = CascadeType.ALL
+            cascade = CascadeType.ALL, fetch = FetchType.EAGER
     )
     Set<Proposal> proposalsCreated = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(
             mappedBy = "user",
-            cascade = CascadeType.ALL
+            cascade = CascadeType.ALL, fetch = FetchType.EAGER
     )
     Set<Event> eventsCreated = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(
             mappedBy = "user",
-            cascade = CascadeType.ALL
+            cascade = CascadeType.ALL, fetch = FetchType.EAGER
     )
     Set<AwardingHistory> awards = new HashSet<>();
 

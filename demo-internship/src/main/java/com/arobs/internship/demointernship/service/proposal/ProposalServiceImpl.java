@@ -1,8 +1,11 @@
 package com.arobs.internship.demointernship.service.proposal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Component
@@ -25,13 +28,13 @@ public class ProposalServiceImpl implements ProposalService {
 
     @Override
     @Transactional
-    public boolean voteProposal(int id, int userId) {
-        return proposalObject.voteProposal(id, userId);
+    public void deleteProposal(int id) {
+        proposalObject.deleteProposal(id);
     }
 
     @Override
     @Transactional
-    public void deleteProposal(int id) {
-        proposalObject.deleteProposal(id);
+    public List<ProposalVotesDTO> getProposalTop(int topSize) {
+        return proposalObject.getProposalTop(topSize);
     }
 }

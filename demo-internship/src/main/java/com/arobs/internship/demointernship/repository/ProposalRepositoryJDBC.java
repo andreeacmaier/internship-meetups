@@ -3,6 +3,7 @@ package com.arobs.internship.demointernship.repository;
 import com.arobs.internship.demointernship.configuration.Datasource;
 import com.arobs.internship.demointernship.entity.Proposal;
 import com.arobs.internship.demointernship.repository.interfaces.ProposalRepository;
+import com.arobs.internship.demointernship.service.proposal.ProposalVotesDTO;
 import com.arobs.internship.demointernship.service.user.UserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 @Repository
 public class ProposalRepositoryJDBC implements ProposalRepository {
@@ -60,12 +62,16 @@ public class ProposalRepositoryJDBC implements ProposalRepository {
     }
 
     @Override
-    public void voteProposal(int id, int userId) {
-
+    public void deleteProposal(int id) {
     }
 
     @Override
-    public void deleteProposal(int id) {
+    public List<Proposal> getProposals() {
+        return null;
+    }
 
+    @Override
+    public List<ProposalVotesDTO> getProposalsTopHavingSize(int topSize) {
+        return null;
     }
 }

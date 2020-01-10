@@ -122,4 +122,5 @@ public class Proposal {
     public void setUsers(Set<User> users) {
         this.users = users;
     }
+
 }

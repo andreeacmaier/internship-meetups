@@ -1,6 +1,8 @@
 package com.arobs.internship.demointernship.service.event;
 
 import com.arobs.internship.demointernship.entity.User;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
 
@@ -13,7 +15,13 @@ public class EventDTO {
     private String language;
     private int durationInMinutes;
     private int maximumPeople;
+
+
+    // TODO: 1/8/2020 vezi vcare-i treaba cu timezone 
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat( pattern = "yyyy-MM-dd HH:mm:ss")
     private Date date;
+
     private int room;
 
     public User getUser() {

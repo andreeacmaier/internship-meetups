@@ -7,6 +7,8 @@ import com.arobs.internship.demointernship.utils.RepositoryConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.*;
+
 @Component
 public class ProposalObject {
 
@@ -33,15 +35,13 @@ public class ProposalObject {
         return null;
     }
 
-    // TODO: 1/6/2020 votat
-    public boolean voteProposal(int id, int userId) {
-        ProposalRepository proposalRepository = proposalRepositoryFactory.createProposalRepository(RepositoryConstants.HIBERNATE_REPOSITORY_TYPE);
-        proposalRepository.voteProposal(id, userId);
-        return true;
-    }
-
     public void deleteProposal(int id) {
         ProposalRepository proposalRepository = proposalRepositoryFactory.createProposalRepository(RepositoryConstants.HIBERNATE_REPOSITORY_TYPE);
         proposalRepository.deleteProposal(id);
+    }
+    
+    public List<ProposalVotesDTO> getProposalTop(int topSize) {
+        ProposalRepository proposalRepository = proposalRepositoryFactory.createProposalRepository(RepositoryConstants.HIBERNATE_REPOSITORY_TYPE);
+        return proposalRepository.getProposalsTopHavingSize(topSize);
     }
 }

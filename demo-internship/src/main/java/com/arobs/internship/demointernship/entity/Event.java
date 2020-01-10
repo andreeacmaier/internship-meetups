@@ -1,5 +1,9 @@
 package com.arobs.internship.demointernship.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.HashSet;
@@ -14,7 +18,8 @@ public class Event {
     @Column(name = "event_id", nullable = false)
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -36,6 +41,8 @@ public class Event {
     @Column(name = "max_people", nullable = false)
     private int maximumPeople;
 
+    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat( pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "event_date", nullable = false)
     private Date date;
 
@@ -47,6 +54,21 @@ public class Event {
             cascade = CascadeType.ALL
     )
     Set<Attendance> attendees = new HashSet<>();
+
+    public Event(Proposal proposal, int room, Date date){
+        this.user = proposal.getUser();
+        this.title = proposal.getTitle();
+        this.description = proposal.getDescription();
+        this.difficulty = proposal.getDifficulty();
+        this.language = proposal.getLanguage();
+        this.durationInMinutes = proposal.getDurationInMinutes();
+        this.maximumPeople = proposal.getMaximumPeople();
+        this.room = room;
+        this.date = date;
+    }
+
+    public Event() {
+    }
 
     public int getId() {
         return id;

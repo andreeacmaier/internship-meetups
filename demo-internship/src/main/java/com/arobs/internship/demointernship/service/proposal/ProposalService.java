@@ -1,6 +1,9 @@
 package com.arobs.internship.demointernship.service.proposal;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public interface ProposalService {
@@ -9,7 +12,7 @@ public interface ProposalService {
 
     ProposalDTO getProposalById(int id);
 
-    boolean voteProposal(int id, int userId);
-
     void deleteProposal(int id);
+
+    List<ProposalVotesDTO> getProposalTop(int topSize);
 }
