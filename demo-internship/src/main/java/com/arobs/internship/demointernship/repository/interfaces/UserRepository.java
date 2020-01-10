@@ -18,4 +18,6 @@ public interface UserRepository {
     List<Proposal> findVotedProposalsForUser(int id);
 
     void voteProposal(int userId, Proposal proposal);
+
+    void addAchievementPoints(int proposalVotingPoints, int userId);
 }

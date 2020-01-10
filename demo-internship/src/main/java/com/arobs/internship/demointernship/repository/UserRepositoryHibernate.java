@@ -67,4 +67,12 @@ public class UserRepositoryHibernate implements UserRepository {
         user.getVotedProposals().add(proposal);
         session.save(user);
     }
+
+    @Override
+    public void addAchievementPoints(int proposalVotingPoints, int userId) {
+        User user = findUserById(userId);
+        user.setPoints(user.getPoints() + proposalVotingPoints);
+        Session session = sessionFactory.getCurrentSession();
+        session.update(user);
+    }
 }

@@ -100,6 +100,9 @@ public class UserRepositoryJDBCImpl implements UserRepository {
 
     @Override
     public void voteProposal(int userId, Proposal proposal) {
+    }
 
+    @Override
+    public void addAchievementPoints(int proposalVotingPoints, int userId) {
     }
 }

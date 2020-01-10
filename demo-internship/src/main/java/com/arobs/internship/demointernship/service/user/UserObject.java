@@ -7,6 +7,7 @@ import com.arobs.internship.demointernship.repository.factory.UserRepositoryFact
 import com.arobs.internship.demointernship.repository.interfaces.ProposalRepository;
 import com.arobs.internship.demointernship.repository.interfaces.UserRepository;
 import com.arobs.internship.demointernship.service.proposal.ProposalDTO;
+import com.arobs.internship.demointernship.utils.AchievementConstants;
 import com.arobs.internship.demointernship.utils.RepositoryConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -93,10 +94,8 @@ public class UserObject {
 
     public void vote(int userId, int proposalId) {
         UserRepository userRepository = userRepositoryFactory.createUserRespository(RepositoryConstants.HIBERNATE_REPOSITORY_TYPE);
-        ProposalRepository proposalRepository = proposalRepositoryFactory.createProposalRepository(RepositoryConstants.HIBERNATE_REPOSITORY_TYPE);
-        Proposal proposal = proposalRepository.findById(proposalId);
-        LOGGER.info(" Proposal id = " + proposal.getId());
-        userRepository.voteProposal(userId, proposal);
+        voteProposal(userRepository, userId, proposalId);
+        giveUserPointsForVoting(userRepository,userId);
     }
 
     public boolean userVotedProposal(int userId, int proposalId) {
@@ -105,5 +104,17 @@ public class UserObject {
         Proposal proposal = proposalRepository.findById(proposalId);
         List<Proposal> votedProposals = userRepository.findVotedProposalsForUser(userId);
         return votedProposals.contains(proposal);
+    }
+
+    private void voteProposal(UserRepository userRepository,int userId, int proposalId) {
+        ProposalRepository proposalRepository = proposalRepositoryFactory.createProposalRepository(RepositoryConstants.HIBERNATE_REPOSITORY_TYPE);
+        Proposal proposal = proposalRepository.findById(proposalId);
+        LOGGER.info(" Proposal id = " + proposal.getId());
+        userRepository.voteProposal(userId, proposal);
+    }
+
+    private void giveUserPointsForVoting(UserRepository userRepository, int userId){
+        User user = userRepository.findUserById(userId);
+        userRepository.addAchievementPoints(AchievementConstants.PROPOSAL_VOTING_POINTS, userId);
     }
 }
