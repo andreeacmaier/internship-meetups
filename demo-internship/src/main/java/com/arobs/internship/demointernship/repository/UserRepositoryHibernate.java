@@ -47,7 +47,6 @@ public class UserRepositoryHibernate implements UserRepository {
         Query query = session.createQuery(queryString);
         query.setParameter(1, userId);
         List<Proposal> proposals = query.getResultList();
-        LOGGER.info("ID from db : " + proposals.get(0).getUser().getId());
         return proposals;
     }
 

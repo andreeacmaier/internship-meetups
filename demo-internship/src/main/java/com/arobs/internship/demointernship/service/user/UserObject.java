@@ -12,7 +12,9 @@ import com.arobs.internship.demointernship.utils.RepositoryConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +65,6 @@ public class UserObject {
         UserRepository userRepository = userRepositoryFactory.createUserRespository(RepositoryConstants.HIBERNATE_REPOSITORY_TYPE);
         List<Proposal> proposalList = userRepository.findProposalsForUser(userId);
         List<ProposalDTO> proposalDTOList = mapFromEntityToDto(proposalList);
-        LOGGER.info("ID from object : " + String.valueOf(proposalDTOList.get(0).getUserId()));
         return proposalDTOList;
     }
 
@@ -109,8 +110,10 @@ public class UserObject {
     private void voteProposal(UserRepository userRepository,int userId, int proposalId) {
         ProposalRepository proposalRepository = proposalRepositoryFactory.createProposalRepository(RepositoryConstants.HIBERNATE_REPOSITORY_TYPE);
         Proposal proposal = proposalRepository.findById(proposalId);
-        LOGGER.info(" Proposal id = " + proposal.getId());
-        userRepository.voteProposal(userId, proposal);
+        if (userId != proposal.getUser().getId()) {
+            LOGGER.info(" Proposal id = " + proposal.getId());
+            userRepository.voteProposal(userId, proposal);
+        } else throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User can't vote his proposal.");
     }
 
     private void giveUserPointsForVoting(UserRepository userRepository, int userId){

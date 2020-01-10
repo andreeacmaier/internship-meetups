@@ -44,4 +44,13 @@ public class ProposalObject {
         ProposalRepository proposalRepository = proposalRepositoryFactory.createProposalRepository(RepositoryConstants.HIBERNATE_REPOSITORY_TYPE);
         return proposalRepository.getProposalsTopHavingSize(topSize);
     }
+
+    public List<ProposalDTO> getAllProposals() {
+        ProposalRepository proposalRepository = proposalRepositoryFactory.createProposalRepository(RepositoryConstants.HIBERNATE_REPOSITORY_TYPE);
+        List<Proposal> proposals = proposalRepository.getProposals();
+        if (proposals != null){
+            return proposalMapper.mapAsList(proposals, ProposalDTO.class);
+        }
+        return null;
+    }
 }

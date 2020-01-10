@@ -37,4 +37,10 @@ public class ProposalServiceImpl implements ProposalService {
     public List<ProposalVotesDTO> getProposalTop(int topSize) {
         return proposalObject.getProposalTop(topSize);
     }
+
+    @Override
+    @Transactional
+    public List<ProposalDTO> getAllProposals() {
+        return proposalObject.getAllProposals();
+    }
 }

@@ -15,4 +15,6 @@ public interface ProposalService {
     void deleteProposal(int id);
 
     List<ProposalVotesDTO> getProposalTop(int topSize);
+
+    List<ProposalDTO> getAllProposals();
 }

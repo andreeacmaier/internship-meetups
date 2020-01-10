@@ -74,4 +74,5 @@ public class ProposalRepositoryJDBC implements ProposalRepository {
     public List<ProposalVotesDTO> getProposalsTopHavingSize(int topSize) {
         return null;
     }
+
 }
