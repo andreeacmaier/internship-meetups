@@ -10,6 +10,8 @@ import com.arobs.internship.demointernship.repository.interfaces.ProposalReposit
 import com.arobs.internship.demointernship.repository.interfaces.UserRepository;
 import com.arobs.internship.demointernship.utils.AchievementConstants;
 import com.arobs.internship.demointernship.utils.RepositoryConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Async;
@@ -28,6 +30,8 @@ import java.util.Objects;
 @Component
 @EnableAsync
 public class EventObject {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(EventObject.class);
 
     @Autowired
     EventRepository eventRepository;
@@ -120,10 +124,11 @@ public class EventObject {
     @Scheduled(fixedRate = 5*60*1000)
     @Async
     public void awardUser() throws ParseException {
+
         List<Event> events = eventRepository.findAll();
         for (Event event:events) {
-            if (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(event.getDate()).before(new Date()) && !event.isStatus()) {
-                event.setStatus(true); //close event
+            if (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(event.getDate()).before(new Date()) && !event.isClose()) {
+                event.setClose(true); //close event
                 eventRepository.updateEvent(event); //save update to db
                 awardOrganizer(event);
             }

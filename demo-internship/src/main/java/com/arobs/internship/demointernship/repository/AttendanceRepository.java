@@ -32,18 +32,25 @@ public class AttendanceRepository {
         return session.byId(Attendance.class).load(attendanceId);
     }
 
-    public void giveFeedback(Attendance attendance) {
+    public void update(Attendance attendance) {
         Session session = sessionFactory.getCurrentSession();
         session.update(attendance);
     }
 
-    public List<Integer> findAttendeesToBeAwarded() {
+    public List<Attendance> findAttendeesToBeAwarded() {
         Session session = sessionFactory.getCurrentSession();
-        String queryString = "select u.user_id from users u , attendance a, event e\n" +
-                "where u.user_id = a.user_id\n" +
-                "and a.event_id = e.event_id\n" +
-                "and e.status = 1;";
+        String queryString = "select a.* " +
+                " from users u , attendance a, event e " +
+                " where u.user_id = a.user_id " +
+                " and a.event_id = e.event_id " +
+                " and e.status = 1 and a.user_awarded = 0;";
         Query query = session.createNativeQuery(queryString);
+        return query.getResultList();
+    }
+
+    public List<Attendance> findAll(){
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("FROM Attendance  a");
         return query.getResultList();
     }
 }

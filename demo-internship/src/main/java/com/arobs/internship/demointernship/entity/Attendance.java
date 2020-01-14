@@ -25,6 +25,9 @@ public class Attendance {
     @Column(name = "comment", nullable = false)
     private String comment;
 
+    @Column(name = "user_awarded", columnDefinition = "false")
+    private boolean userAwarded;
+
     public int getId() {
         return id;
     }
@@ -63,5 +66,13 @@ public class Attendance {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public boolean isUserAwarded() {
+        return userAwarded;
+    }
+
+    public void setUserAwarded(boolean userAwarded) {
+        this.userAwarded = userAwarded;
     }
 }

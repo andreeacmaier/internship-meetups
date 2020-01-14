@@ -48,7 +48,7 @@ public class Event {
     private int room;
 
     @Column(name = "status", columnDefinition = "false")
-    private boolean status;
+    private boolean close;
 
     @OneToMany(
             mappedBy = "event",
@@ -159,11 +159,11 @@ public class Event {
         this.attendees = attendees;
     }
 
-    public boolean isStatus() {
-        return status;
+    public boolean isClose() {
+        return close;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setClose(boolean status) {
+        this.close = status;
     }
 }

@@ -7,7 +7,10 @@ import com.arobs.internship.demointernship.repository.AttendanceRepository;
 import com.arobs.internship.demointernship.repository.EventRepository;
 import com.arobs.internship.demointernship.repository.factory.UserRepositoryFactory;
 import com.arobs.internship.demointernship.repository.interfaces.UserRepository;
+import com.arobs.internship.demointernship.utils.AchievementConstants;
 import com.arobs.internship.demointernship.utils.RepositoryConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Async;
@@ -25,6 +28,8 @@ import java.util.List;
 @Component
 @EnableAsync
 public class AttendanceObject {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AttendanceObject.class);
 
     @Autowired
     UserRepositoryFactory userRepositoryFactory;
@@ -62,20 +67,37 @@ public class AttendanceObject {
     }
 
     public void giveFeedback(int attendanceId, FeedbackDTO feedback) {
-        if (feedback.getNote() < 1 || feedback.getNote() > 5){
+        if (feedback.getNote() < 1 || feedback.getNote() > 5) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Note field should be between 1 and 5");
         }
+        UserRepository userRepository = userRepositoryFactory.createUserRespository(RepositoryConstants.HIBERNATE_REPOSITORY_TYPE);
         Attendance attendance = attendanceRepository.findById(attendanceId);
         attendance.setNote(feedback.getNote());
         attendance.setComment(feedback.getComment());
-        attendanceRepository.giveFeedback(attendance);
+        attendanceRepository.update(attendance);
+        User user = userRepository.findUserById(attendance.getUser().getId());
+        user.setPoints(user.getPoints() + AchievementConstants.EVENT_FEEDBACK_POINTS);
+        userRepository.updateUser(user);
     }
 
     @Transactional
-    @Scheduled(fixedRate = 5*60*1000)
+    @Scheduled(fixedRate = 5 * 60 * 1000)
     @Async
-    public void awardAttendee() throws ParseException {
-        List<Integer> attendeesToBeAwarded = attendanceRepository.findAttendeesToBeAwarded();
-
+    public void awardAttendee() {
+        LOGGER.info("AWARD ATTENDEE");
+        UserRepository userRepository = userRepositoryFactory.createUserRespository(RepositoryConstants.HIBERNATE_REPOSITORY_TYPE);
+        List<Attendance> attendances = attendanceRepository.findAll();
+        for (Attendance attendance : attendances) {
+            if (!attendance.isUserAwarded()) {
+                User user = userRepository.findUserById(attendance.getUser().getId());
+                Event event = eventRepository.findById(attendance.getEvent().getId());
+                if (event.isClose()) {
+                    user.setPoints(user.getPoints() + AchievementConstants.ATTENDEE_POINTS);
+                    userRepository.updateUser(user);
+                    attendance.setUserAwarded(true);
+                    attendanceRepository.update(attendance);
+                }
+            }
+        }
     }
 }
