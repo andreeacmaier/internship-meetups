@@ -1,5 +1,6 @@
 package com.arobs.internship.demointernship.repository;
 
+import com.arobs.internship.demointernship.entity.Event;
 import com.arobs.internship.demointernship.entity.Proposal;
 import com.arobs.internship.demointernship.entity.User;
 import com.arobs.internship.demointernship.repository.interfaces.UserRepository;
@@ -71,6 +72,12 @@ public class UserRepositoryHibernate implements UserRepository {
     public void addAchievementPoints(int proposalVotingPoints, int userId) {
         User user = findUserById(userId);
         user.setPoints(user.getPoints() + proposalVotingPoints);
+        Session session = sessionFactory.getCurrentSession();
+        session.update(user);
+    }
+
+    @Override
+    public void updateUser(User user) {
         Session session = sessionFactory.getCurrentSession();
         session.update(user);
     }

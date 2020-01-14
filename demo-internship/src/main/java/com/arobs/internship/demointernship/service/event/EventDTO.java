@@ -1,10 +1,7 @@
 package com.arobs.internship.demointernship.service.event;
 
 import com.arobs.internship.demointernship.entity.User;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import java.sql.Date;
 
 public class EventDTO {
 
@@ -16,11 +13,8 @@ public class EventDTO {
     private int durationInMinutes;
     private int maximumPeople;
 
-
-    // TODO: 1/8/2020 vezi vcare-i treaba cu timezone 
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat( pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date date;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private String date;
 
     private int room;
 
@@ -80,11 +74,11 @@ public class EventDTO {
         this.maximumPeople = maximumPeople;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

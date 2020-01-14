@@ -9,8 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
-
 @Controller
 @RequestMapping("/events")
 public class EventController {
@@ -20,13 +18,22 @@ public class EventController {
 
     @PostMapping(path = "{proposalId}/createEvent")
     public ResponseEntity saveEvent(@PathVariable int proposalId, @RequestParam int roomNumber,
-                          @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date date) {
-        eventService.saveEvent(proposalId,roomNumber,date);
+                                    @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") String date) {
+        eventService.saveEvent(proposalId, roomNumber, date);
         return ResponseEntity.ok(HttpStatus.CREATED);
     }
 
     @GetMapping(path = "{eventId}")
-    public ResponseEntity<EventDTO> getEventById(@PathVariable int eventId){
+    public ResponseEntity<EventDTO> getEventById(@PathVariable int eventId) {
         return ResponseEntity.ok(eventService.getEventById(eventId));
+    }
+
+    @PutMapping(path = "{eventId}")
+    public ResponseEntity editEvent(@PathVariable int eventId,
+                                    @RequestParam int roomNumber,
+                                    @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") String date,
+                                    @RequestParam int maximumNumberOfPeople){
+        eventService.editEvent(eventId, roomNumber, date, maximumNumberOfPeople);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 }

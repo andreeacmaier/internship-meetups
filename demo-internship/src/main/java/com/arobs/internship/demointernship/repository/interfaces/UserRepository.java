@@ -1,5 +1,6 @@
 package com.arobs.internship.demointernship.repository.interfaces;
 
+import com.arobs.internship.demointernship.entity.Event;
 import com.arobs.internship.demointernship.entity.Proposal;
 import com.arobs.internship.demointernship.entity.User;
 
@@ -20,4 +21,6 @@ public interface UserRepository {
     void voteProposal(int userId, Proposal proposal);
 
     void addAchievementPoints(int proposalVotingPoints, int userId);
+
+    void updateUser(User user);
 }

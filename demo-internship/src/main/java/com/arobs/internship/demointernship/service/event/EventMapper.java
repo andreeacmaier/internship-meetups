@@ -3,13 +3,10 @@ package com.arobs.internship.demointernship.service.event;
 import com.arobs.internship.demointernship.entity.Event;
 import org.springframework.stereotype.Component;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 @Component
 public class EventMapper {
 
-    public EventDTO mapFromEntityToDto(Event event){
+    public EventDTO mapFromEntityToDto(Event event) {
         EventDTO eventDTO = new EventDTO();
         eventDTO.setUser(event.getUser());
         eventDTO.setDate(event.getDate());
@@ -24,7 +21,7 @@ public class EventMapper {
         return eventDTO;
     }
 
-    public Event mapFromDtoToEvent(EventDTO eventDTO){
+    public Event mapFromDtoToEvent(EventDTO eventDTO) {
         Event event = new Event();
         event.setUser(eventDTO.getUser());
         event.setDate(eventDTO.getDate());
@@ -35,6 +32,7 @@ public class EventMapper {
         event.setMaximumPeople(eventDTO.getMaximumPeople());
         event.setRoom(eventDTO.getRoom());
         event.setTitle(eventDTO.getTitle());
+
         return event;
     }
 

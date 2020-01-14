@@ -1,7 +1,9 @@
 package com.arobs.internship.demointernship.service.user;
 
+import com.arobs.internship.demointernship.entity.Event;
 import com.arobs.internship.demointernship.entity.Proposal;
 import com.arobs.internship.demointernship.entity.User;
+import com.arobs.internship.demointernship.repository.EventRepository;
 import com.arobs.internship.demointernship.repository.factory.ProposalRepositoryFactory;
 import com.arobs.internship.demointernship.repository.factory.UserRepositoryFactory;
 import com.arobs.internship.demointernship.repository.interfaces.ProposalRepository;
@@ -29,6 +31,9 @@ public class UserObject {
 
     @Autowired
     ProposalRepositoryFactory proposalRepositoryFactory;
+
+    @Autowired
+    EventRepository eventRepository;
 
     @Autowired
     UserMapper userMapper;
@@ -120,4 +125,6 @@ public class UserObject {
         User user = userRepository.findUserById(userId);
         userRepository.addAchievementPoints(AchievementConstants.PROPOSAL_VOTING_POINTS, userId);
     }
+
+
 }

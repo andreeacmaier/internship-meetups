@@ -1,6 +1,7 @@
 package com.arobs.internship.demointernship.repository;
 
 import com.arobs.internship.demointernship.configuration.Datasource;
+import com.arobs.internship.demointernship.entity.Event;
 import com.arobs.internship.demointernship.entity.Proposal;
 import com.arobs.internship.demointernship.entity.User;
 import com.arobs.internship.demointernship.repository.interfaces.UserRepository;
@@ -104,5 +105,10 @@ public class UserRepositoryJDBCImpl implements UserRepository {
 
     @Override
     public void addAchievementPoints(int proposalVotingPoints, int userId) {
+    }
+
+    @Override
+    public void updateUser(User user) {
+
     }
 }

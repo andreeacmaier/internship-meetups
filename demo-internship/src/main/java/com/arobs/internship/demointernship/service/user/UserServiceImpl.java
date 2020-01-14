@@ -53,4 +53,6 @@ public class UserServiceImpl implements UserService {
     public boolean userVotedProposal(int userId, int proposalId) {
         return userObject.userVotedProposal(userId, proposalId);
     }
+
+
 }

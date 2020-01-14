@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
-
 @Component
 public class EventServiceImpl implements EventService {
 
@@ -20,7 +18,13 @@ public class EventServiceImpl implements EventService {
 
     @Override
     @Transactional
-    public void saveEvent(int proposalId, int roomNumber, Date date) {
+    public void saveEvent(int proposalId, int roomNumber, String date) {
         eventObject.saveEvent(proposalId, roomNumber, date);
+    }
+
+    @Override
+    @Transactional
+    public void editEvent(int eventId, int roomNumber, String date, int maximumNumberOfPeople) {
+        eventObject.editEvent(eventId, roomNumber, date, maximumNumberOfPeople);
     }
 }

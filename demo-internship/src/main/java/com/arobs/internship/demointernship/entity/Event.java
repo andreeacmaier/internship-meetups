@@ -2,10 +2,8 @@ package com.arobs.internship.demointernship.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,13 +39,16 @@ public class Event {
     @Column(name = "max_people", nullable = false)
     private int maximumPeople;
 
-    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat( pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    //@DateTimeFormat( pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "event_date", nullable = false)
-    private Date date;
+    private String date;
 
     @Column(name = "room", nullable = false)
     private int room;
+
+    @Column(name = "status", columnDefinition = "false")
+    private boolean status;
 
     @OneToMany(
             mappedBy = "event",
@@ -55,7 +56,7 @@ public class Event {
     )
     Set<Attendance> attendees = new HashSet<>();
 
-    public Event(Proposal proposal, int room, Date date){
+    public Event(Proposal proposal, int room, String date){
         this.user = proposal.getUser();
         this.title = proposal.getTitle();
         this.description = proposal.getDescription();
@@ -126,11 +127,11 @@ public class Event {
         this.maximumPeople = maximumPeople;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -156,5 +157,13 @@ public class Event {
 
     public void setAttendees(Set<Attendance> attendees) {
         this.attendees = attendees;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

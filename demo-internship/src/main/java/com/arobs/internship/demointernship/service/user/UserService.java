@@ -21,4 +21,5 @@ public interface UserService {
     void vote(int userId, int proposalId);
 
     boolean userVotedProposal(int userId, int proposalId);
+
 }
