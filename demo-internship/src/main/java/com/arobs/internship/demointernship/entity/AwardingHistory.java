@@ -1,14 +1,13 @@
 package com.arobs.internship.demointernship.entity;
 
 import javax.persistence.*;
-import java.sql.Date;
 
 @Entity
 @Table(name = "awarding_history")
 public class AwardingHistory {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "awarding_history_seq")
     @Column(name = "awarding_id", nullable = false)
     private int id;
 

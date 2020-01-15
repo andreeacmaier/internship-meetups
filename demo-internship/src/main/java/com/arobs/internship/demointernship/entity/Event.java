@@ -12,7 +12,7 @@ import java.util.Set;
 public class Event {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_seq")
     @Column(name = "event_id", nullable = false)
     private int id;
 
@@ -40,7 +40,6 @@ public class Event {
     private int maximumPeople;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    //@DateTimeFormat( pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "event_date", nullable = false)
     private String date;
 

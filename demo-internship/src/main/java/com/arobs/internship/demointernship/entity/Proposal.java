@@ -10,7 +10,7 @@ import java.util.Set;
 public class Proposal {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "proposal_seq")
     @Column(name = "proposal_id", nullable = false)
     private int id;
 

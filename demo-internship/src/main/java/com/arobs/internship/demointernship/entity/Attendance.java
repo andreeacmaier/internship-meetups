@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Attendance {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "attendance_seq")
     @Column(name = "attendance_id", nullable = false)
     private int id;
 

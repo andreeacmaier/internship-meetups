@@ -11,7 +11,7 @@ import java.util.Set;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
     @Column(name = "user_id")
     private int id;
 
@@ -70,7 +70,8 @@ public class User {
     )
     Set<AwardingHistory> awards = new HashSet<>();
 
-    public User() {}
+    public User() {
+    }
 
     public User(int userId) {
         this.id = userId;
