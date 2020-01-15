@@ -81,4 +81,12 @@ public class UserRepositoryHibernate implements UserRepository {
         Session session = sessionFactory.getCurrentSession();
         session.update(user);
     }
+
+    @Override
+    public List<User> findAllOrderedByPoints() {
+        Session session = sessionFactory.getCurrentSession();
+        String queryString = "select u from User u order by points desc";
+        Query query = session.createQuery(queryString);
+        return query.getResultList();
+    }
 }

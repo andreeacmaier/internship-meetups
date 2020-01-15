@@ -23,4 +23,6 @@ public interface UserRepository {
     void addAchievementPoints(int proposalVotingPoints, int userId);
 
     void updateUser(User user);
+
+    List<User> findAllOrderedByPoints();
 }

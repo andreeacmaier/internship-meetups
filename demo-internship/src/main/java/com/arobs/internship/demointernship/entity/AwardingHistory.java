@@ -17,7 +17,7 @@ public class AwardingHistory {
     private User user;
 
     @Column(name = "awarding_date", nullable = false)
-    private Date awardingDate;
+    private String awardingDate;
 
     @Column(name = "number_of_points", nullable = false)
     private int points;
@@ -42,11 +42,11 @@ public class AwardingHistory {
         this.user = user;
     }
 
-    public Date getAwardingDate() {
+    public String getAwardingDate() {
         return awardingDate;
     }
 
-    public void setAwardingDate(Date awardingDate) {
+    public void setAwardingDate(String awardingDate) {
         this.awardingDate = awardingDate;
     }
 

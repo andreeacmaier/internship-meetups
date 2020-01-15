@@ -54,5 +54,15 @@ public class UserServiceImpl implements UserService {
         return userObject.userVotedProposal(userId, proposalId);
     }
 
+    @Override
+    @Transactional
+    public List<UserDTO> getUserTop() {
+        return userObject.getUserTop();
+    }
 
+    @Override
+    @Transactional
+    public void givePrize(int prizeId) {
+        userObject.givePrize(prizeId);
+    }
 }

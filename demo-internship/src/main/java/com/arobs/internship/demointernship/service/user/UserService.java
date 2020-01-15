@@ -22,4 +22,7 @@ public interface UserService {
 
     boolean userVotedProposal(int userId, int proposalId);
 
+    List<UserDTO> getUserTop();
+
+    void givePrize(int prizeId);
 }

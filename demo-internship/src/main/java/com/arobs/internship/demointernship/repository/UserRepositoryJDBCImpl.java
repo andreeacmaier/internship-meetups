@@ -111,4 +111,9 @@ public class UserRepositoryJDBCImpl implements UserRepository {
     public void updateUser(User user) {
 
     }
+
+    @Override
+    public List<User> findAllOrderedByPoints() {
+        return null;
+    }
 }
